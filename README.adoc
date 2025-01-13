@@ -253,7 +253,6 @@ Le fichier ```RunCucumberTest.java``` est le fichier qui permet d'exécuter les 
 .Trace d'éxécution des tests du TP3 - Réussis
 image::ResultTestTP3.png[Trace d'éxécution du test du TP3]
 
-Ce projet avait pour objectif de tester les cas d'usages d'un panier d'achat.
 Le projet implémente un système de panier d'achat avec les fonctionnalités suivantes :
 
 * ```Cart.java``` : Gestion d'un panier d'achats
@@ -261,3 +260,5 @@ Le projet implémente un système de panier d'achat avec les fonctionnalités su
 ** Calcul du montant total et du nombre total d'items dans le panier
 * ```Item.java``` : Définition des items du panier
 ** Récupération de la quantité, du prix, du montant de la réduction et du prix final d'un item
+
+Ce projet avait pour objectif de tester les cas d'usages d'un panier d'achat. Notamment l'ajout de produits avec ou sans réduction, avec le calcul du montant total (avec ou sans réduction) et du nombre total d'items dans le panier.
