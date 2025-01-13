@@ -24,6 +24,8 @@ Feature: Is it Friday yet?
       | anything else! | Nope   |
 ----
 
+Le fichier ```is_it_friday_yet.feature``` est le fichier qui permet de définir les tests du TP1.
+
 .Trace d'éxécution des tests du TP1 - Réussis
 image::ResultTestTP1.png[Trace d'éxécution du test du TP1]
 
@@ -71,5 +73,191 @@ public class Order {
 }
 ----
 
+Le fichier ```Order.java``` est le fichier qui permet de définir la classe ```Order``` qui permet de définir les commandes.
+
 .Trace d'éxécution des tests du TP2 - Réussis
 image::ResultTestTP2.png[Trace d'éxécution du test du TP2]
+
+
+== TP3
+
+.Contenu du fichier ```cart.feature```
+[source,text]
+----
+Feature: Shopping Cart Management
+  As a customer
+  I want to manage my shopping cart
+  So that I can prepare my order
+
+  Scenario Outline: Adding products to cart without discount
+    Given an empty shopping cart
+    When I add <quantity> "<product>" with unit price of <price> dollars
+    Then the cart should contain <quantity> items
+    And the total amount should be <total> dollars
+
+    Examples:
+      | product           | quantity | price  | total |
+      | Python Book      | 2        | 24.99  | 49.98 |
+      | USB Webcam       | 1        | 59.99  | 59.99 |
+      | Wireless Charger | 3        | 15.99  | 47.97 |
+
+  Scenario Outline: Adding products to cart with discount
+    Given an empty shopping cart
+    When I add <quantity> "<product>" with unit price of <price> dollars and <discount> percent discount
+    Then the cart should contain <quantity> items
+    And the total amount should be <total> dollars
+
+    Examples:
+      | product           | quantity | price  | discount | total  |
+      | Gaming Monitor   | 1        | 299.99 | 20      | 239.99 |
+      | Mechanical Mouse | 2        | 49.99  | 15      | 84.98  |
+      | Gaming Headset   | 1        | 129.99 | 30      | 90.99  | 
+----
+
+Le fichier ```cart.feature``` est le fichier qui permet de définir les tests du TP3.
+
+.Contenu du fichier ```Cart.java```
+[source,java]
+----
+package shoppingcart;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cart {
+
+    private List<Item> items;
+
+    public Cart() {
+        this.items = new ArrayList<>();
+    }
+
+    public void addItem(String name, int quantity, double price, double discount) {
+        Item item = new Item(name, quantity, price, discount);
+        items.add(item);
+    }
+
+    public int getTotalItems() {
+        return items.stream()
+                .mapToInt(Item::getQuantity)
+                .sum();
+    }
+
+    public double getTotalAmount() {
+        return items.stream()
+                .mapToDouble(item -> item.getFinalPrice() * item.getQuantity())
+                .sum();
+    }
+}
+
+class Item {
+
+    private String name;
+    private int quantity;
+    private double price;
+    private double discount;
+
+    public Item(String name, int quantity, double price, double discount) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public double getFinalPrice() {
+        return price * (1 - discount / 100);
+    }
+}
+----
+
+Le fichier ```Cart.java``` est le fichier qui permet de définir la classe ```Cart``` et la classe ```Item``` qui permet de définir les items du panier.
+
+.Contenu du fichier ```CartSteps.java```
+[source,java]
+----
+package shoppingcart;
+
+import static org.junit.Assert.assertEquals;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class CartSteps {
+
+    private Cart cart;
+
+    @Given("an empty shopping cart")
+    public void anEmptyShoppingCart() {
+        cart = new Cart();
+    }
+
+    @When("I add {int} {string} with unit price of {double} dollars")
+    public void iAddProduct(int quantity, String product, double price) {
+        cart.addItem(product, quantity, price, 0);
+    }
+
+    @When("I add {int} {string} with unit price of {double} dollars and {double} percent discount")
+    public void iAddProductWithDiscount(int quantity, String product, double price, double discount) {
+        cart.addItem(product, quantity, price, discount);
+    }
+
+    @Then("the cart should contain {int} items")
+    public void theCartShouldContainItems(int expectedCount) {
+        assertEquals(expectedCount, cart.getTotalItems());
+    }
+
+    @Then("the total amount should be {double} dollars")
+    public void theTotalAmountShouldBe(double expectedAmount) {
+        assertEquals(expectedAmount, cart.getTotalAmount(), 0.01);
+    }
+}
+----
+
+Le fichier ```CartSteps.java``` est le fichier qui permet de définir les étapes des tests du TP3.
+
+.Contenu du fichier ```RunCucumberTest.java```
+[source,java]
+----
+package shoppingcart;
+
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
+
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("shoppingcart")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+public class RunCucumberTest {
+}
+----
+
+Le fichier ```RunCucumberTest.java``` est le fichier qui permet d'exécuter les tests du TP3. Les annotations Java avec ```@``` sont des annotations qui permettant notamment d'afficher les détails des tests lors de leur execution.
+
+.Trace d'éxécution des tests du TP3 - Réussis
+image::ResultTestTP3.png[Trace d'éxécution du test du TP3]
+
+Ce projet avait pour objectif de tester les cas d'usages d'un panier d'achat.
+Le projet implémente un système de panier d'achat avec les fonctionnalités suivantes :
+
+* ```Cart.java``` : Gestion d'un panier d'achats
+** Ajout de produits avec ou sans réduction
+** Calcul du montant total et du nombre total d'items dans le panier
+* ```Item.java``` : Définition des items du panier
+** Récupération de la quantité, du prix, du montant de la réduction et du prix final d'un item
