@@ -279,7 +279,7 @@ mvn test | tail -n 16 > report.txt
 
 include::hellocucumber/report.txt[]
 
-```include::hellocucumber/report.txt[]``` ne fonctionnant pas comme indiqué dans le TP4, J'ajoute le lien du fichier ```report.txt```.
+```include::hellocucumber/report.txt[]``` ne fonctionnant pas comme indiqué dans le TP4, J'ajoute le lien du fichier report.txt.
 
 === Documentation améliorée (cucumber en ligne de commande)
 
