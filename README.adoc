@@ -262,3 +262,65 @@ Le projet implémente un système de panier d'achat avec les fonctionnalités su
 ** Récupération de la quantité, du prix, du montant de la réduction et du prix final d'un item
 
 Ce projet avait pour objectif de tester les cas d'usages d'un panier d'achat. Notamment l'ajout de produits avec ou sans réduction, avec le calcul du montant total (avec ou sans réduction) et du nombre total d'items dans le panier.
+
+== TP4
+
+=== Documentation minimale (cucumber)
+
+Pour réaliser cette documentation, j'ai utilisé le projet ```hellocucumber```.
+Afin de générer la documentation, il faut exécuter la commande suivante :
+
+[source,bash]
+----
+mvn test | tail -n 16 > report.txt
+----
+
+.Contenu du fichier ```report.txt``` généré
+[source,shell]
+----
+include::hellocucumber/report.txt[]
+----
+
+=== Documentation améliorée (cucumber en ligne de commande)
+
+.Rapport en ligne des tests de la SAE 5 - Réussis
+image::ResultTestSAE5Ruby.png[Rapport en ligne des tests de la SAE 5]
+
+=== Documentation améliorée (cukedoctor)
+
+Pour réaliser cette documentation, j'ai utilisé le projet ```cucumber_demo```.
+Afin de générer la documentation, il faut exécuter la commande suivante :
+
+[source,bash]
+----
+mvn cukedoctor:execute
+----
+
+.Extrait du rapport généré par le plugin ```cukedoctor``` pour le projet ```cucumber_demo```
+image::ResultTestDocumentationCukedoctor.png[Extrait du rapport généré par le plugin ```cukedoctor``` pour le projet ```cucumber_demo```]
+
+=== Véritable rapport (serenity)
+
+Pour réaliser cette documentation, j'ai utilisé le projet ```shoppingcart```.
+Afin de générer la documentation, il a fallu cloner le projet https://github.com/serenity-bdd/serenity-junit-screenplay-starter[serenity starter] et le configurer pour le projet ```shoppingcart```.
+Ainsi, une fois le projet configuré, il faut exécuter la commande suivante :
+
+[source,bash]
+----
+mvn clean verify
+----
+
+.Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Overall Test Results 1
+image::ResultTestDocumentationSerenityPart1.png[Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Overall Test Results 1]
+
+.Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Overall Test Results 1.5
+image::ResultTestDocumentationSerenityPart1.5.png[Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Overall Test Results 1.5]
+
+.Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Requirements
+image::ResultTestDocumentationSerenityPart2.png[Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Requirements]
+
+.Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Capabilities
+image::ResultTestDocumentationSerenityPart3.png[Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Capabilities]
+
+.Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Features
+image::ResultTestDocumentationSerenityPart4.png[Extrait du rapport généré par le plugin ```serenity``` pour le projet ```shoppingcart``` - Features]
