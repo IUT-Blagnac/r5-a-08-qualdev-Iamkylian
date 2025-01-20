@@ -276,15 +276,15 @@ mvn test | tail -n 16 > report.txt
 ----
 
 .Contenu du fichier ```report.txt``` généré
-[source,shell]
-----
+
 include::hellocucumber/report.txt[]
-----
+
 
 ```include::hellocucumber/report.txt[]``` ne fonctionnant pas, j'affiche le contenu du fichier au format text.
 
 .Contenu du fichier ```report.txt``` généré
-```
+[source,text]
+----
 Scenario Outline: Checking if it's Friday # hellocucumber/is_it_friday_yet.feature:13
   Given today is "anything else!"         # hellocucumber.StepDefinitions.today_is(java.lang.String)
   When I ask whether it's Friday yet      # hellocucumber.StepDefinitions.i_ask_whether_it_s_friday_yet()
@@ -301,7 +301,7 @@ Scenario Outline: Checking if it's Friday # hellocucumber/is_it_friday_yet.featu
 [INFO] Total time:  3.054 s
 [INFO] Finished at: 2025-01-17T22:14:27+01:00
 [INFO] ------------------------------------------------------------------------
-```
+----
 
 === Documentation améliorée (cucumber en ligne de commande)
 
