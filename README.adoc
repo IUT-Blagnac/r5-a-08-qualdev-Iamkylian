@@ -284,7 +284,7 @@ include::hellocucumber/report.txt[]
 ```include::hellocucumber/report.txt[]``` ne fonctionnant pas, j'affiche le contenu du fichier au format text.
 
 .Contenu du fichier ```report.txt``` généré
-[source,text]
+[source,shell]
 ----
 Scenario Outline: Checking if it's Friday # hellocucumber/is_it_friday_yet.feature:13
   Given today is "anything else!"         # hellocucumber.StepDefinitions.today_is(java.lang.String)
